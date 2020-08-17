@@ -22,6 +22,7 @@ All Parameters _must_ be contained in a single object.
 | parentMenu | The parent menu to this menu. | BaseMenu\|null | false | `null` |
 | isHoverable | A flag to allow hover events on the menu. | boolean | false | `false` |
 | hoverDelay | The delay for closing menus if the menu is hoverable (in miliseconds). | number | false | `250` |
+| autoCloseActiveMenu | Whether or not to close the active open menu if an external click is detected. | boolean | false | `false` |
 
 ## Available Getters
 
@@ -39,6 +40,7 @@ All Parameters _must_ be contained in a single object.
 | currentMenuItem | The currently selected menu item. | MenuItem |
 | isHoverable | A flag to allow hover events on the menu. | boolean |
 | hoverDelay | The delay time (in miliseconds) used for mouseout events to take place. | number |
+| autoCloseActiveMenu | Whether or not to close the active open menu if an external click is detected. | boolean |
 
 ## Available Setters
 
