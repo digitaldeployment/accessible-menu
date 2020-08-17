@@ -35,6 +35,7 @@ class BaseMenu {
    * @param {BaseMenu|null}        [param0.parentMenu = null]           - The parent menu to this menu.
    * @param {boolean}              [param0.isHoverable = false]         - A flag to allow hover events on the menu.
    * @param {number}               [param0.hoverDelay = 250]            - The delay for closing menus if the menu is hoverable (in miliseconds).
+   * @param {boolean}              [param0.autoCloseActiveMenu = false] - Whether or not to close the active open menu if an external click is detected.
    */
   constructor({
     menuElement,
@@ -51,6 +52,7 @@ class BaseMenu {
     parentMenu = null,
     isHoverable = false,
     hoverDelay = 250,
+    autoCloseActiveMenu = false,
   }) {
     // Run validations.
     isBoolean({ isTopLevel });
@@ -106,6 +108,7 @@ class BaseMenu {
     this.currentEvent = "none";
     this.isHoverable = isHoverable;
     this.hoverDelay = hoverDelay;
+    this.autoCloseActiveMenu = autoCloseActiveMenu;
 
     this.initialize();
   }
@@ -543,23 +546,25 @@ class BaseMenu {
    */
   handleClick() {
     // Close the menu if a click event happens outside of it.
-    document.addEventListener("mouseup", event => {
-      if (this.focusState !== "none") {
-        this.currentEvent = "mouse";
-
-        if (
-          !this.dom.menu.contains(event.target) &&
-          !this.dom.menu !== event.target
-        ) {
-          this.closeChildren();
-          this.blur();
-
-          if (this.elements.controller) {
-            this.elements.controller.close();
+    if (this.autoCloseActiveMenu) {
+      document.addEventListener("mouseup", event => {
+        if (this.focusState !== "none") {
+          this.currentEvent = "mouse";
+  
+          if (
+            !this.dom.menu.contains(event.target) &&
+            !this.dom.menu !== event.target
+          ) {
+            this.closeChildren();
+            this.blur();
+  
+            if (this.elements.controller) {
+              this.elements.controller.close();
+            }
           }
         }
-      }
-    });
+      });
+    }
 
     /**
      * Toggles a toggle element.
