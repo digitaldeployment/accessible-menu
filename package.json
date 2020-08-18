@@ -1,5 +1,5 @@
 {
-  "name": "accessible-menu",
+  "name": "@digitaldeployment/accessible-menu",
   "version": "2.1.0",
   "description": "A JavaScript library to help you generate WCAG accessible menus in the DOM.",
   "main": "index.js",
